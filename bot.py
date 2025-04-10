@@ -111,7 +111,7 @@ def select_duration(update: Update, context: CallbackContext):
 
     context.user_data['duration'] = duration
     query.edit_message_text(
-        text=f"Вы выбрали ключ на {duration} месяцев.\nВведите название организации и РТУ:"
+        text=f"Вы выбрали ключ на {duration} месяцев.\nВведите название организации и РТУ в одном сообщении через пробел:"
     )
     return ENTER_ORG
 
@@ -157,7 +157,7 @@ def receive_org(update: Update, context: CallbackContext):
 
                 # 🔥 Записываем организацию в таблицу
                 sheet.update_cell(row_index, 2, org_name)
-                update.message.reply_text(f"Ваш ключ: {key}\nОрганизация: {org_name}")
+                update.message.reply_text(f"Ваш ключ: `{key}`\nОрганизация: {org_name}", parse_mode="MarkdownV2")
                 main_menu(update, context)
                 return ConversationHandler.END
 
