@@ -148,16 +148,14 @@ def receive_org(update: Update, context: CallbackContext):
             if key:
                 row_index = i + 2  # Учитываем заголовок (первая строка)
 
-                # ✅ Двойная проверка перед обновлением (чтобы избежать коллизий)
                 time.sleep(0.5)  # Немного ждем перед проверкой
                 updated_row = sheet.row_values(row_index)  # Считываем данные повторно
                 if len(updated_row) > 1 and updated_row[1].strip():  
                     # Если ячейку уже заняли, продолжаем поиск
                     continue  
 
-                # 🔥 Записываем организацию в таблицу
                 sheet.update_cell(row_index, 2, org_name)
-                update.message.reply_text(f"Ваш ключ: `{key}`\nОрганизация: {org_name}", parse_mode="MarkdownV2")
+                update.message.reply_text(f"Ваш ключ: `{key}`", parse_mode="MarkdownV2")
                 main_menu(update, context)
                 return ConversationHandler.END
 
